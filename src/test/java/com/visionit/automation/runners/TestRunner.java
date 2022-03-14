@@ -7,9 +7,9 @@ import io.cucumber.junit.CucumberOptions;
 import io.cucumber.core.cli.Main;
 @RunWith(Cucumber.class)
 @CucumberOptions(
-		features = "C:\\Users\\admin\\eclipse-workspace1\\selenium_visionit_assignment\\src\\test\\resources\\features",
+		features = "classpath:features",
 		glue = "com.visionit.automation.stepdefs",
-		tags = "",
+		tags = "@test1",
 		plugin = {
 				"pretty",
 				"html:target/html/htmlreport.html",

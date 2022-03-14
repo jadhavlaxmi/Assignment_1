@@ -74,13 +74,6 @@ public class StepDefs {
       }
     }
 
-    
-//	@Given("User opened browser")
-//	public void user_opened_browser() {
-//		driver = new ChromeDriver();
-//        driver.manage().window().maximize();
-//        driver.manage().timeouts().implicitlyWait(implicit_wait_timeout_in_sec, TimeUnit.SECONDS);
-//	}
 
 
 	@SuppressWarnings("deprecation")
@@ -108,48 +101,36 @@ public class StepDefs {
 	
 
 
-@Then("Page Title should be My Store")
-public void page_title_should_be_my_store() {
-	WebDriverFactory.navigateToTheUrl(base_url);
-    scn.log("Browser navigated to URL: " + base_url);
-
-    String expected = "My Store";
-    cmnPageObjects.validatePageTitleMatch(expected);
-}
 
 @Then("page should contain logo with desired width as {int} and height as {int}")
-public void page_should_contain_logo_with_desired_width_as_and_height_as(Integer width, Integer height) {
-width=350;
-height=99;
+public void page_should_contain_logo_with_desired_width_as_and_height_as(int width, int height) {
 cmnPageObjects.validateLogo(width, height);
+scn.log("height : "+height+" width : "+width);
 
 }
 @When("User Search for product {string}")
-public void user_search_for_product(String string) {
-	cmnPageObjects.SetSearchTextBox("T-shirt");
+public void user_search_for_product(String productName) {
+	cmnPageObjects.SetSearchTextBox(productName);
+   
+    scn.log("Product Searched: " + productName);
 }
 
 
 @Then("Search Result page is displayed with text {string}")
 public void search_result_page_is_displayed_with_text(String expected) {
 	
-	expected = "T-shirts > Faded Short Sleeve T-shirts ";
 	 cmnPageObjects.validateSearch(expected);
+	 scn.log("validate Search : " + expected);
 	 
 
 }
 
 
-@Then("main product categories count should be three")
-public void main_product_categories_count_should_be_three() {
-	cmnPageObjects.ClickOnTheProductLink();
-	
-}
 
 @Then("display the text of three categories")
 public void display_the_text_of_three_categories() {
-	cmnPageObjects.ClickOnTheProductLink();
-	
+	cmnPageObjects.countTheProductLink();
+	scn.log("three categories displayed");
 }
 
 
@@ -160,15 +141,45 @@ public void user_search_for_twitter_link_from_footer_section_of_the_landing_page
 
 @Then("Product Description is displayed in new tab with title {string}")
 public void product_description_is_displayed_in_new_tab_with_title(String expectedTitle) {
-	expectedTitle="Selenium Framework (@seleniumfrmwrk) / Twitter";
 	cmnPageObjects.validate_footer_url(expectedTitle);
 	
     
 }
 
-@Then("the twitter account name should be Selenium Framework")
-public void the_twitter_account_name_should_be_selenium_framework() {
-    cmnPageObjects.validate_footer_name();
+
+
+@Then("the twitter account name should be {string}")
+public void the_twitter_account_name_should_be(String str) {
+	cmnPageObjects.validate_footer_name(str);
+}
+
+
+@Then("Page Title should be {string}")
+public void page_title_should_be(String actualTitle) {
+	WebDriverFactory.navigateToTheUrl(base_url);
+    scn.log("Browser navigated to URL: " + base_url);
+
+    cmnPageObjects.validatePageTitleMatch(actualTitle);
+   
+    
+}
+@Then("Page Url should be {string}")
+public void page_url_should_be(String url) {
+    cmnPageObjects.validateUrl(url);
+}
+
+@When("User Search for product categories {string}")
+public void user_search_for_product_categories(String productCategory) {
+	cmnPageObjects.SearchCategory(productCategory);
+	scn.log("searched for"+productCategory);
+        
+}
+
+@Then("main product categories count should be {int}")
+public void main_product_categories_count_should_be(int count) {
+	cmnPageObjects.CountTheProductLink(count);
+	
+
 }
 
 

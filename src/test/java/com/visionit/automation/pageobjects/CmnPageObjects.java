@@ -27,8 +27,10 @@ public class CmnPageObjects {
 	private By nav_link_category =  By.xpath("//div[@id='block_top_menu']/ul/li");
 	private By twitter_footer_link =  By.xpath("//*[@target='_blank' and @href='https://twitter.com/seleniumfrmwrk']");
 	private By list_of_search =By.xpath("//body/div[2]/ul[1]/li[1]");
-	private By twitter_link_name =By.xpath("//*[@id=\"react-root\"]/div/div/div[2]/main/div/div/div/div/div/div[2]/div/div/div/div[2]/div[2]/div/div/div[1]/div/span[1]/span");
-	
+	private By twitter_link_name =By.xpath("(//span[contains(text(),'Selenium Framework')])[2]");
+	private By woman_link=By.xpath("//*[@id=\"block_top_menu\"]/ul/li[1]/a");
+	private By dresses_link=By.xpath("//*[@id=\"block_top_menu\"]/ul/li[2]/a");
+	private By tshirt_link=By.xpath("//*[@id=\"block_top_menu\"]/ul/li[3]/a");
 
 	public CmnPageObjects(WebDriver driver) {
 		this.driver = driver;
@@ -42,10 +44,34 @@ public class CmnPageObjects {
 		elementSearchBox.sendKeys(text);
 		logger.info("Value entered in search box: " + text);
 	}
+	
+	public void SearchCategory(String productCategory) {
+			
+		List<WebElement> allProduct = driver.findElements(nav_link_category);
+		int total=allProduct.size();
+		System.out.println("total product category : "+total);
+        for(  WebElement product : allProduct){
+        	
+        	
+        	System.out.println(product.getText());
+        	 logger.info("Number of products searched: " + product.getText());
+        	 
+        }
+	}
 
 	public void ClickOnSearchButton() {
 		driver.findElement(search_button).click();
 		logger.info("Clicked on Search Button");
+	}
+	
+	
+	public void CountTheProductLink(int count) {
+		List<WebElement> allProduct = driver.findElements(nav_link_category);
+		int actulCount=allProduct.size();
+		System.out.println(actulCount);
+		Assert.assertEquals(count, actulCount);
+		
+        logger.info("Number of products searched: " + allProduct.size());
 	}
 
 	
@@ -56,45 +82,70 @@ public class CmnPageObjects {
 		
 		 width=driver.findElement(nav_link_logo).getSize().getWidth();
 	     height=driver.findElement(nav_link_logo).getSize().getHeight();
-	      Assert.assertEquals(width, 350);
+	     Assert.assertEquals(width, 350);
 	      Assert.assertEquals(height, 99);
+	}
+	
+	public void validateUrl(String url) {
+		String url1=driver.getCurrentUrl();
+		System.out.println("page url : "+url1);
+		Assert.assertEquals(url, url1);
+		logger.info("Page url matched: " + url );
 	}
 	
 	public void validatePageTitleMatch(String expectedTitle) {
 		WebDriverWait wait = new WebDriverWait(driver, 30);
 		Boolean b = wait.until(ExpectedConditions.titleContains(expectedTitle));
 		Assert.assertEquals("Title Validation",true, b);
-		logger.info("Page title matched: " + expectedTitle );
+		logger.info("Page url matched: " + expectedTitle );
 	}
-	public void ClickOnTheProductLink(){
+	public void ClickOnTheProductLink(int count){
         //listOfProducts will have all the links displayed in the search box
 		List<WebElement> allProduct = driver.findElements(nav_link_category);
-		System.out.println(allProduct.size());
+		int actulCount=allProduct.size();
+		System.out.println(actulCount);
+		Assert.assertEquals(count, actulCount);
+		
         logger.info("Number of products searched: " + allProduct.size());
        
-
         for(  WebElement product : allProduct){
 
+        	//product.click();
         	System.out.println(product.getText());
+        	 logger.info("Number of products searched: " + product.getText());
+        	
         }
-		
-        
-       
 
     }
-	
+
+	public void countTheProductLink(){
+        //listOfProducts will have all the links displayed in the search box
+		List<WebElement> allProduct = driver.findElements(nav_link_category);
+		
+        logger.info("Number of products searched: " + allProduct.size());
+        for(  WebElement product : allProduct){
+
+        	//product.click();
+        	System.out.println(product.getText());
+        	 logger.info("Number of products searched: " + product.getText());
+        	
+        }
+
+    }
 	
 public void validateSearch(String textToSelect) { 	
 	WebElement ele_move=driver.findElement(list_of_search);
 	Actions act=new Actions(driver);
 	WebDriverWait wait = new WebDriverWait(driver, 30);
 	act.moveToElement(ele_move).click().build().perform();
-     driver.findElement(search_button).click();
+     ClickOnSearchButton();
+     logger.info("clicked on search btn ");
      
 }
 public void validate_footer() {
 	boolean b= driver.findElement(twitter_footer_link).isDisplayed();
 	Assert.assertEquals("Title Validation",true, b);
+	logger.info("title validated" );
 	
 }
 
@@ -109,10 +160,7 @@ public void validate_footer_url(String expectedTitle) {
 
     driver.switchTo().window(prodDescp); // switch to product Descp
 
-    //Now driver can access new driver window, but can not access the orignal tab
-    //Check product title is displayed
-   
-    //driver.switchTo().window(original);
+   // driver.switchTo().window(original);
 	WebDriverWait wait = new WebDriverWait(driver, 30);
 	Boolean b = wait.until(ExpectedConditions.titleContains(expectedTitle));
 	Assert.assertEquals("Title Validation",true, b);
@@ -120,14 +168,13 @@ public void validate_footer_url(String expectedTitle) {
 
 
 }
-public void validate_footer_name() {
+public void validate_footer_name(String str) {
 	
     WebElement actual= driver.findElement(twitter_link_name);
     Assert.assertEquals(true,actual.isDisplayed());
+    //Assert.assertEquals(str, actual);
     
-    logger.info("Page title matched: " + actual);
-    
-
+    logger.info("Page title matched: " + str);
 
 }
 
