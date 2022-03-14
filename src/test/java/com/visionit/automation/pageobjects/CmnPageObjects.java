@@ -80,10 +80,10 @@ public class CmnPageObjects {
 		boolean b = driver.findElement(nav_link_logo).isDisplayed();
 		Assert.assertEquals("Navigation link logo",true, b);
 		
-		 width=driver.findElement(nav_link_logo).getSize().getWidth();
-	     height=driver.findElement(nav_link_logo).getSize().getHeight();
-	     Assert.assertEquals(width, 350);
-	      Assert.assertEquals(height, 99);
+		int width1=driver.findElement(nav_link_logo).getSize().getWidth();
+	    int height1=driver.findElement(nav_link_logo).getSize().getHeight();
+	     Assert.assertEquals(width, width1);
+	      Assert.assertEquals(height,height1);
 	}
 	
 	public void validateUrl(String url) {
