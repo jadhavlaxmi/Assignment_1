@@ -5,7 +5,7 @@ Feature: E-commerce Project test cases
     Given User navigated to the home application url
 
   @test1
-  Scenario: User is able to Open the browser, validate the title
+  Scenario: User is able to Open the browser, validate the Url
     Then Page Url should be "http://automationpractice.com/index.php"
 
   @test2
