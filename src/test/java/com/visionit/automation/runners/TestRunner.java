@@ -9,7 +9,7 @@ import io.cucumber.core.cli.Main;
 @CucumberOptions(
 		features = "classpath:features",
 		glue = "com.visionit.automation.stepdefs",
-		tags = "",
+		tags = "@test1",
 		plugin = {
 				"pretty",
 				"html:target/html/htmlreport.html",
