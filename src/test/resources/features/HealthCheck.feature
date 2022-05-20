@@ -9,9 +9,8 @@ Feature: E-commerce Project test cases
     Then Page Url should be "http://automationpractice.com/index.php"
 
   @test2
-  Scenario: User is able to Open the browser, check the logo visibility
-    Then Page Title should be "My Store"
-    Then page should contain logo with desired width as 350 and height as 99
+  Scenario: User is able to Open the browser, check the logo visibility 
+   Then page should contain logo with desired width as 350 and height as 99
 
   @test3
   Scenario: User is able to Open the browser, navigate to the URL and Search for Product

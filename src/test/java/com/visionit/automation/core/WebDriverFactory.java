@@ -1,4 +1,4 @@
-package com.visionit.automation.core;
+ package com.visionit.automation.core;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
